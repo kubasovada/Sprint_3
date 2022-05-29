@@ -94,7 +94,15 @@ public class LoginCourierNegativeTest {
     assertEquals(message, "Учетная запись не найдена");
   }
 
+  @Test
+  public void courierCantLoginWithoutCreatedData404() {
 
+    ValidatableResponse loginResponse = courierClient.login(new CourierCredentials("loginWithoutCreation", "sOmepssw"));
+    int statusCode =  loginResponse.extract().statusCode();
+    String message = loginResponse.extract().path("message");
 
+    assertThat("Courier can login without creation", statusCode, equalTo(SC_NOT_FOUND));
+    assertEquals(message, "Учетная запись не найдена");
+  }
 
 }
