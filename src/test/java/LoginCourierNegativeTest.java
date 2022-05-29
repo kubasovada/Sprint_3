@@ -76,5 +76,25 @@ public class LoginCourierNegativeTest {
     assertEquals(message, "Учетная запись не найдена");
   }
 
+  @Test
+  public void courierCantLoginWithIncorrectPassword404() {
+    Courier courier = Courier.getRandom();
+    courierClient.create(courier);
+
+    CourierCredentials creds = CourierCredentials.from(courier);
+    ValidatableResponse loginResponse = courierClient.login(creds); //логин для id
+    courierId = loginResponse.extract().path("id"); // для удаления
+
+    loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), "        " + courier.getPassword()));
+    int statusCode =  loginResponse.extract().statusCode();
+    String message = loginResponse.extract().path("message");
+    courierClient.delete(courierId);
+
+    assertThat("Courier can login with incorrect login", statusCode, equalTo(SC_NOT_FOUND));
+    assertEquals(message, "Учетная запись не найдена");
+  }
+
+
+
 
 }
