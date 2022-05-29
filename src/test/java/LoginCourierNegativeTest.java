@@ -47,13 +47,13 @@ public class LoginCourierNegativeTest {
     assertEquals(message, "Недостаточно данных для входа");
   }
 
-  @Test(timeout = 5000) // поставила таймаут, чтобы не ждать зависающий тест
+  @Test
   public void courierCantLoginWithNullPassword() {
     Courier courier = Courier.getRandom();
     ValidatableResponse loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), null));
     int statusCode =  loginResponse.extract().statusCode();
-    String message = loginResponse.extract().path("message");
     assertThat("Что-то пошло не так", statusCode, equalTo(SC_BAD_REQUEST));
+    String message = loginResponse.extract().path("message");
     assertEquals(message, "Недостаточно данных для входа");
   }
 
