@@ -1,7 +1,6 @@
 package courier;
 
 import lombok.Data;
-import org.apache.commons.lang3.RandomStringUtils;
 
 @Data
 public class CourierCredentials {
@@ -23,16 +22,10 @@ public class CourierCredentials {
     this.password = password;
   }
 
-  public  static  CourierCredentials from(Courier courier) {
+  public static CourierCredentials from(Courier courier) {
 
     return new CourierCredentials(courier);
 
   }
-
-
-
-
-
-
 
 }

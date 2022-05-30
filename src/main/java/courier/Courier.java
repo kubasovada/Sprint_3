@@ -23,8 +23,4 @@ public class Courier {
     return new Courier(login, password, firstName);
   }
 
-  //  public Courier(String password) {
-//    this.password = password;
-//  }
-
 }
