@@ -3,7 +3,6 @@ package courier;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.given;
-import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.apache.http.HttpStatus.SC_OK;
 
 // методы для работы с API курьеров
@@ -14,7 +13,7 @@ public class CourierClient extends RestAssuredClient {
   private final String COURIER = ROOT + "/{courierId}";
 
 
-  public boolean createCourier(Courier courier) {
+  public ValidatableResponse createCourier(Courier courier) {
 
     return given()
             .header("Content-type", "application/json")
@@ -22,11 +21,7 @@ public class CourierClient extends RestAssuredClient {
             .body(courier)
             .when()
             .post(ROOT)
-            .then().log().all()
-            .assertThat()
-            .statusCode(SC_CREATED)
-            .extract()
-            .path("ok");
+            .then().log().all();
   }
 
   public ValidatableResponse loginCourier(CourierCredentials creds) {
