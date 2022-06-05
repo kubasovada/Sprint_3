@@ -29,4 +29,12 @@ public class OrderClient extends  RestAssuredClient {
             .then();
   }
 
+  public ValidatableResponse getOrderList() {
+    return given().log().all()
+            .header("Content-type", "application/json")
+            .baseUri(URL)
+            .get(ORDERS)
+            .then();
+  }
+
 }
