@@ -1,6 +1,8 @@
 import courier.Courier;
 import courier.CourierClient;
 import courier.CourierCredentials;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
@@ -23,6 +25,8 @@ public class LoginCourierNegativeTest {
   }
 
   @Test
+  @DisplayName("Courier can't login without field login in body")
+  @Description("Без поля логина")
   public void courierCantLoginWithoutLoginInBody404() {
 
     String password = RandomStringUtils.randomAlphanumeric(10);
@@ -36,6 +40,8 @@ public class LoginCourierNegativeTest {
   }
 
   @Test
+  @DisplayName("Courier can't login with null login")
+  @Description("Передаём в боди login:null")
   public void courierCantLoginWithNullLogin400() {
     Courier courier = Courier.getRandom();
     ValidatableResponse loginResponse = courierClient.loginCourier(new CourierCredentials(null, courier.getPassword()));
@@ -46,6 +52,8 @@ public class LoginCourierNegativeTest {
   }
 
   @Test
+  @DisplayName("Courier can't login with null password")
+  @Description("Передаём в боди password:null")
   public void courierCantLoginWithNullPassword() {
     Courier courier = Courier.getRandom();
     ValidatableResponse loginResponse = courierClient.loginCourier(new CourierCredentials(courier.getLogin(), null));
@@ -56,6 +64,8 @@ public class LoginCourierNegativeTest {
   }
 
   @Test
+  @DisplayName("Courier can't login with incorrect login")
+  @Description("Система вернёт ошибку, если неправильно указать логин")
   public void courierCantLoginWithIncorrectLogin404() {
     Courier courier = Courier.getRandom();
     courierClient.createCourier(courier);
@@ -75,6 +85,8 @@ public class LoginCourierNegativeTest {
   }
 
   @Test
+  @DisplayName("Courier can't login with incorrect password")
+  @Description("Система вернёт ошибку, если неправильно указать пароль")
   public void courierCantLoginWithIncorrectPassword404() {
     Courier courier = Courier.getRandom();
     courierClient.createCourier(courier);
@@ -88,11 +100,13 @@ public class LoginCourierNegativeTest {
     String message = loginResponse.extract().path("message");
     courierClient.deleteCourier(courierId);
 
-    assertThat("Courier can login with incorrect login", statusCode, equalTo(SC_NOT_FOUND));
+    assertThat("Courier can login with incorrect password", statusCode, equalTo(SC_NOT_FOUND));
     assertEquals(message, "Учетная запись не найдена");
   }
 
   @Test
+  @DisplayName("Courier can't login without created data")
+  @Description("если авторизоваться под несуществующим пользователем, запрос возвращает ошибку;")
   public void courierCantLoginWithoutCreatedData404() {
 
     ValidatableResponse loginResponse = courierClient.loginCourier(new CourierCredentials("loginWithoutCreation", "sOmepssw"));

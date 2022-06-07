@@ -1,6 +1,8 @@
 import courier.Courier;
 import courier.CourierClient;
 import courier.CourierCredentials;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -27,6 +29,8 @@ public class CreateCourierWithDeletionTest {
   }
 
   @Test
+  @DisplayName("Courier creation with valid credentials")
+  @Description("Позитивный тест на создание курьера, с последующим удалением")
   public void courierCreationWithValidCredentials() {
     Courier courier = Courier.getRandom();
     ValidatableResponse createResponse = courierClient.createCourier(courier);
@@ -41,6 +45,8 @@ public class CreateCourierWithDeletionTest {
   }
 
   @Test
+  @DisplayName("Courier creation with valid credentials twice")
+  @Description("нельзя создать двух одинаковых курьеров")
   public void courierCreationWithValidCredentialsTwice() {
     Courier courier = Courier.getRandom();
     courierClient.createCourier(courier);

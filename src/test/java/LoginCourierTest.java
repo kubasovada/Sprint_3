@@ -1,6 +1,8 @@
 import courier.Courier;
 import courier.CourierClient;
 import courier.CourierCredentials;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +30,8 @@ public class LoginCourierTest {
   }
 
   @Test
+  @DisplayName("Courier can login with valid credentials")
+  @Description("Логин с валидными данными")
   public void courierCanLoginWithValidCredentials() {
     Courier courier = Courier.getRandom();
     courierClient.createCourier(courier);

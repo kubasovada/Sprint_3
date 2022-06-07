@@ -1,5 +1,7 @@
 import courier.Order;
 import courier.OrderClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -36,6 +38,8 @@ public class CreateOrderTest {
   }
 
   @Test
+  @DisplayName("Create order with valid data")
+  @Description("Параметризованные тесты с комбинациями цветов")
   public void createOrderWithValidData() {
     Order order = Order.orderData(color);
     ValidatableResponse orderCreationResponse = orderClient.createOrder(order);

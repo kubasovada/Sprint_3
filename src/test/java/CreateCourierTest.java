@@ -1,5 +1,7 @@
 import courier.Courier;
 import courier.CourierClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
@@ -18,6 +20,8 @@ public class CreateCourierTest {
   }
 
   @Test
+  @DisplayName("Courier creation with null login")
+  @Description("если одного из полей нет, запрос возвращает ошибку")
   public void courierCreationWithNullLogin() {
     String password = RandomStringUtils.randomAlphanumeric(10);
     ValidatableResponse createResponse = courierClient.createCourier(new Courier(null, password, null));
@@ -30,6 +34,8 @@ public class CreateCourierTest {
   }
 
   @Test
+  @DisplayName("Courier creation with null password")
+  @Description("если одного из полей нет, запрос возвращает ошибку")
   public void courierCreationWithNullPassword() {
     String login = RandomStringUtils.randomAlphanumeric(10);
     ValidatableResponse createResponse = courierClient.createCourier(new Courier(login, null, "Some name"));
@@ -42,6 +48,8 @@ public class CreateCourierTest {
   }
 
   @Test
+  @DisplayName("Courier creation with all null fields")
+  @Description("если одного из полей нет, запрос возвращает ошибку")
   public void courierCreationWithAllNullFields() {
     ValidatableResponse createResponse = courierClient.createCourier(new Courier(null, null, null));
 
