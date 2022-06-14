@@ -1,0 +1,6 @@
+LoginCourierNegativeTest.class
+CreateCourierTest.class
+CreateCourierWithDeletionTest.class
+CreateOrderTest.class
+GetOrderListTest.class
+LoginCourierTest.class
